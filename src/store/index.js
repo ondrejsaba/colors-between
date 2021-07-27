@@ -60,6 +60,12 @@ export default createStore({
   		},
   		colorCount(state) {
   			return state.colorCount
+  		},
+  		firstColor(state) {
+  			return state.colors[0]
+  		},
+  		lastColor(state) {
+  			return state.colors[state.colors.length-1]
   		}
   	},
   	actions: {
