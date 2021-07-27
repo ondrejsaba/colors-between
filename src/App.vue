@@ -1,26 +1,46 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <main>
+    <all-colors />
+    <color-select-form />
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import AllColors from './components/AllColors.vue'
+import ColorSelectionForm from './components/ColorSelectionForm.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    'all-colors': AllColors,
+    'color-select-form': ColorSelectionForm
+  },
+  methods: {
+    generateColor() {
+      const hexKeys = [...Array(10).keys(), "A", "B", "C", "D", "E", "F"]
+
+      return '#' + [...Array(6).keys()].map(() => hexKeys[Math.floor(Math.random() * hexKeys.length)]).join("")
+    }
+  },
+  mounted() {
+    this.$store.commit('setDefaultColors', [this.generateColor(), this.generateColor()])
+    this.$store.commit('generateColorsInbetween')
   }
 }
 </script>
 
 <style lang="scss">
+@import "./sass/_classes.scss";
+@import "./sass/_variables.scss";
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+}
+
+body {
+  margin: 0;
+  background-color: $light;
 }
 </style>
