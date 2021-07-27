@@ -43,4 +43,8 @@ body {
   margin: 0;
   background-color: $light;
 }
+
+::selection {
+  background-color: none;
+}
 </style>

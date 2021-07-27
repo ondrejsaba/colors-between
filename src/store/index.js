@@ -6,7 +6,7 @@ export default createStore({
   		colorCount: 5
   	},
   	mutations: {
-  		setDefaultColors(state, payload) {
+  		setDefaultColors: (state, payload) => {
   			const Color = require('color')
 
   			state.colors = payload.map((color, index) => {
@@ -18,7 +18,7 @@ export default createStore({
   				}
   			})
   		},
-  		generateColorsInbetween(state) {
+  		generateColorsInbetween: (state) => {
   			const Color = require('color')
 
   			const endpoints = {
@@ -55,20 +55,32 @@ export default createStore({
   		}
   	},
   	getters: {
-  		colorsList(state) {
+  		colorsList: (state) => {
   			return state.colors
   		},
-  		colorCount(state) {
+  		colorCount: (state) => {
   			return state.colorCount
   		},
-  		firstColor(state) {
+  		firstColor: (state) => {
   			return state.colors[0]
   		},
-  		lastColor(state) {
+  		lastColor: (state) => {
   			return state.colors[state.colors.length-1]
   		}
   	},
   	actions: {
+  		addColor: (context) => {
+  			if (context.state.colorCount < 12) {
+  				context.state.colorCount += 1
+  				context.commit('generateColorsInbetween')
+  			}
+  		},
+  		removeColor: (context) => {
+  			if (context.state.colorCount > 3) {
+  				context.state.colorCount -= 1
+  				context.commit('generateColorsInbetween')
+  			}
+  		}
   	},
   	modules: {
   	}

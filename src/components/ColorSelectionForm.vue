@@ -21,7 +21,7 @@
 		</div>
 
 		<div id="color-count-form" class="center-container h-80">
-			<div class="count-modifier-btn">
+			<div class="count-modifier-btn" @click="removeColor">
 				-
 			</div>
 
@@ -29,7 +29,7 @@
 				<h1>{{ colorCount }} colors</h1>
 			</div>
 
-			<div class="count-modifier-btn">
+			<div class="count-modifier-btn" @click="addColor">
 				+
 			</div>
 		</div>
@@ -37,9 +37,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
+	methods: {
+		...mapActions([
+			'addColor',
+			'removeColor'
+		])
+	},
 	computed: {
 		...mapGetters([
 			'colorsList',
