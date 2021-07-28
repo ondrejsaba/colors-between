@@ -43,6 +43,7 @@ $basic-colors: red, green, blue, yellow;
 	line-height: 40px;
 	text-align: center;
 	font-size: 20px;
+	font-weight: 600;
 	color: $dark;
 	box-sizing: border-box;
 	border: 1px solid $light-gray;
@@ -54,6 +55,7 @@ $basic-colors: red, green, blue, yellow;
 
 	span.material-icons {
 		line-height: calc(40px - 2px);
+		vertical-align: top;
 	}
 
 	// button styles

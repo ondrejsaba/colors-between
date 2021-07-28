@@ -1,8 +1,8 @@
 <template>
 	<nav>
-		<div class="btn square borderless ml-5 mt-5">
+		<div class="btn square borderless size-fluid ml-5 mt-5" @click="setShowMenu">
 			<span class="material-icons">
-				menu
+				{{ showMenu ? 'close' : 'menu'}}
 			</span>
 		</div>
 
@@ -13,18 +13,29 @@
 		<div id="navbar-actions">
 			<div class="btn primary" @click="shuffleColors">
 				Shuffle endpoint colors
+				<span class="material-icons">
+					shuffle
+				</span>
 			</div>
 		</div>
 	</nav>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
 	methods: {
 		...mapActions([
 			'shuffleColors'
+		]),
+		...mapMutations([
+			'setShowMenu'
+		])
+	},
+	computed: {
+		...mapGetters([
+			'showMenu'
 		])
 	}
 }
@@ -37,6 +48,8 @@ nav {
 	position: relative;
 	width: 100vw;
 	height: 50px;
+	box-sizing: border-box;
+	border-bottom: 1px solid darken($light, 10%);
 
 	#navbar-title, #navbar-actions {
 		display: inline-block;

@@ -2,10 +2,14 @@ import { createStore } from 'vuex'
 
 export default createStore({
  	state: {
+ 		// color data
   		colors: [],
-  		colorCount: 5
+  		colorCount: 5,
+  		// menu
+  		showMenu: false
   	},
   	mutations: {
+  		// colors data manipulation
   		setDefaultColors: (state, payload) => {
   			const Color = require('color')
 
@@ -68,9 +72,14 @@ export default createStore({
   				rgb: Color(value).rgb().color,
   				id: position
   			}
+  		},
+  		// menu
+  		setShowMenu: (state) => {
+  			state.showMenu = !state.showMenu
   		}
   	},
   	getters: {
+  		// colors getters
   		generateColor() {
       		const hexKeys = [...Array(10).keys(), "A", "B", "C", "D", "E", "F"]
 
@@ -87,6 +96,10 @@ export default createStore({
   		},
   		lastColor: (state) => {
   			return state.colors[state.colors.length-1]
+  		},
+  		// menu getters
+  		showMenu: (state) => {
+  			return state.showMenu
   		}
   	},
   	actions: {

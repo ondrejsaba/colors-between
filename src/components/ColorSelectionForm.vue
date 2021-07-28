@@ -40,7 +40,9 @@
 
 		<div id="color-count-form" class="center-container h-80">
 			<div class="btn square active-shrink mt-10 mr-20" @click="removeColor">
-				-
+				<span class="material-icons">
+					remove
+				</span>
 			</div>
 
 			<div id="color-count-label">
@@ -48,7 +50,9 @@
 			</div>
 
 			<div class="btn square active-shrink mt-10 ml-20" @click="addColor">
-				+
+				<span class="material-icons">
+					add
+				</span>
 			</div>
 		</div>
 	</section>
