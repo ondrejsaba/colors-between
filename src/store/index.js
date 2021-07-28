@@ -12,8 +12,7 @@ export default createStore({
   			state.colors = payload.map((color, index) => {
   				return {
   					hex: color,
-  					rgb: Color(color).rgb().color,
-  					id: index
+  					rgb: Color(color).rgb().color
   				}
   			})
   		},
@@ -51,6 +50,24 @@ export default createStore({
   			})
 
   			state.colors = [state.colors[0], ...colorsInbetween, state.colors[state.colors.length-1]]
+
+  			// assign id to every color
+  			state.colors = state.colors.map((color, index) => {
+  				return {
+  					...color,
+  					id: index
+  				}
+  			})
+  		},
+  		setColorAtPosition: (state, payload) => {
+  			const Color = require('color')
+  			const {position, value} = payload
+
+  			state.colors[position] = {
+  				hex: value,
+  				rgb: Color(value).rgb().color,
+  				id: position
+  			}
   		}
   	},
   	getters: {
@@ -99,10 +116,9 @@ export default createStore({
   		shuffleColors: (context) => {
   			const Color = require('color')
 
-  			context.state.colors = [...Array(2).keys()].map(index => {
+  			context.state.colors = [...Array(2).keys()].map(() => {
   				return {
-  					hex: context.getters.generateColor,
-  					id: index
+  					hex: context.getters.generateColor
   				}
   			}).map(color => {
   				return {

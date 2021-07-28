@@ -46,9 +46,6 @@ export default {
 body {
   margin: 0;
   background-color: $light;
-}
-
-::selection {
-  background-color: none;
+  user-select: none;
 }
 </style>

@@ -47,6 +47,7 @@ $basic-colors: red, green, blue, yellow;
 	border: 1px solid $light-gray;
 	border-radius: 6px;
 	cursor: pointer;
+	transition: all 0.1s ease;
 
 	// button styles
 
@@ -69,6 +70,12 @@ $basic-colors: red, green, blue, yellow;
 	&.square {
 		width: 40px;
 		padding: 0;
+	}
+
+	&.active-shrink {
+		&:active {
+			transform: scale(0.95);
+		}
 	}
 }
 
