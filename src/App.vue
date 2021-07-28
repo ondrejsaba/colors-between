@@ -1,5 +1,6 @@
 <template>
   <main>
+    <navbar />
     <all-colors />
     <color-select-form />
   </main>
@@ -12,6 +13,7 @@
 <script>
 import { mapActions } from 'vuex'
 import { GlobalEvents } from 'vue-global-events'
+import Navbar from './components/Navbar.vue'
 import AllColors from './components/AllColors.vue'
 import ColorSelectionForm from './components/ColorSelectionForm.vue'
 
@@ -19,6 +21,7 @@ export default {
   name: 'App',
   components: {
     'GlobalEvents': GlobalEvents,
+    'navbar': Navbar,
     'all-colors': AllColors,
     'color-select-form': ColorSelectionForm
   },

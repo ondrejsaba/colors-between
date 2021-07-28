@@ -3,16 +3,34 @@
 		class="color-column"
 		:style="{ backgroundColor: colorData.hex }"
 	>
-		<div class="data-container">
+		<div class="data-container" @click="copyColor">
 			<h1>{{ colorData.hex }}</h1>
+
+			<div class="color-copy">
+				{{ hintText }}
+			</div>
 		</div>
 	</div>
 </template>
 
 <script>
 export default {
+	data() {
+		return {
+			hintText: "Copy to clipboard"
+		}
+	},
 	props: {
 		'color-data': Object
+	},
+	methods: {
+		copyColor() {
+			const hintTextBefore = this.hintText
+			this.hintText = "Color copied!"
+			setTimeout(() => {
+				this.hintText = hintTextBefore
+			}, 2000)
+		}
 	}
 }
 </script>
@@ -35,6 +53,34 @@ export default {
 		bottom: 20px;
 		text-align: center;
 		color: $light;
+
+		h1 {
+			transition: all 0.1s ease;
+			cursor: pointer;
+
+			&:hover + .color-copy {
+				display: block;
+			}
+
+			&:active {
+				transform: scale(0.95);
+			}
+		}
+
+		.color-copy {
+			position: absolute;
+			width: fit-content;
+			height: 30px;
+			left: 50%;
+			top: -20px;
+			transform: translateX(-50%);
+			line-height: 30px;
+			font-size: 12px;
+			padding: 0 10px 0 10px;
+			background-color: rgba($dark, 0.5);
+			border-radius: 6px;
+			display: none;
+		}
 	}
 }
 </style>

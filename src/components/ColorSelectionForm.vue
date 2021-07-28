@@ -51,12 +51,6 @@
 				+
 			</div>
 		</div>
-
-		<div id="modifying-btns" class="center-container h-60">
-			<div class="btn primary" @click="shuffleColors">
-				Shuffle endpoint colors
-			</div>
-		</div>
 	</section>
 </template>
 
@@ -67,8 +61,7 @@ export default {
 	methods: {
 		...mapActions([
 			'addColor',
-			'removeColor',
-			'shuffleColors'
+			'removeColor'
 		]),
 		setColorAtPosition(payload) {
 			// HEX code validation
@@ -118,7 +111,7 @@ export default {
 #color-selection-form {
 	position: relative;
 	width: 100vw;
-	height: 220px;
+	height: 160px;
 }
 
 .input-wrapper {
@@ -170,6 +163,7 @@ export default {
 		font-size: 32px;
 		line-height: 60px;
 		text-align: center;
+		color: $dark;
 	}
 }
 </style>
