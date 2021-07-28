@@ -3,28 +3,32 @@
     <all-colors />
     <color-select-form />
   </main>
+
+  <GlobalEvents
+    @keyup.space="shuffleColors"
+  />
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+import { GlobalEvents } from 'vue-global-events'
 import AllColors from './components/AllColors.vue'
 import ColorSelectionForm from './components/ColorSelectionForm.vue'
 
 export default {
   name: 'App',
   components: {
+    'GlobalEvents': GlobalEvents,
     'all-colors': AllColors,
     'color-select-form': ColorSelectionForm
   },
   methods: {
-    generateColor() {
-      const hexKeys = [...Array(10).keys(), "A", "B", "C", "D", "E", "F"]
-
-      return '#' + [...Array(6).keys()].map(() => hexKeys[Math.floor(Math.random() * hexKeys.length)]).join("")
-    }
+    ...mapActions([
+      'shuffleColors'
+    ])
   },
   mounted() {
-    this.$store.commit('setDefaultColors', [this.generateColor(), this.generateColor()])
-    this.$store.commit('generateColorsInbetween')
+    this.$store.dispatch('setDefaultColors')
   }
 }
 </script>

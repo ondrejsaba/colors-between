@@ -21,7 +21,7 @@
 		</div>
 
 		<div id="color-count-form" class="center-container h-80">
-			<div class="count-modifier-btn" @click="removeColor">
+			<div class="btn square mt-10 mr-20" @click="removeColor">
 				-
 			</div>
 
@@ -29,8 +29,14 @@
 				<h1>{{ colorCount }} colors</h1>
 			</div>
 
-			<div class="count-modifier-btn" @click="addColor">
+			<div class="btn square mt-10 ml-20" @click="addColor">
 				+
+			</div>
+		</div>
+
+		<div id="modifying-btns" class="center-container h-60">
+			<div class="btn primary" @click="shuffleColors">
+				Shuffle endpoint colors
 			</div>
 		</div>
 	</section>
@@ -43,7 +49,8 @@ export default {
 	methods: {
 		...mapActions([
 			'addColor',
-			'removeColor'
+			'removeColor',
+			'shuffleColors'
 		])
 	},
 	computed: {
@@ -63,7 +70,7 @@ export default {
 #color-selection-form {
 	position: relative;
 	width: 100vw;
-	height: 160px;
+	height: 220px;
 }
 
 .input-wrapper {
@@ -79,6 +86,7 @@ export default {
 		padding-left: 10px;
 		box-sizing: border-box;
 		border: 1px solid $light-gray;
+		border-radius: 6px;
 	}
 
 	.color-preview {
@@ -87,8 +95,7 @@ export default {
 		right: 25px;
 		width: 30px;
 		height: 30px;
-		box-sizing: border-box;
-		border: 1px solid $dark-gray;
+		border-radius: 6px;
 	}
 }
 
@@ -105,30 +112,6 @@ export default {
 		font-size: 32px;
 		line-height: 60px;
 		text-align: center;
-	}
-
-	.count-modifier-btn {
-		display: inline-block;
-		vertical-align: top;
-		width: 40px;
-		height: 40px;
-		box-sizing: border-box;
-		border: 1px solid $light-gray;
-		margin: 10px 20px 0 20px;
-		text-align: center;
-		color: $dark-gray;
-		font-size: 28px;
-		line-height: 38px;
-
-		&:hover {
-			transform: scale(1.05);
-		}
-
-		&:active {
-			transform: scale(1);
-		}
-
-		cursor: pointer;
 	}
 }
 </style>

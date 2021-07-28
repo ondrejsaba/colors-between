@@ -25,6 +25,7 @@ export default {
 	flex-basis: 1;
 	flex-grow: 1;
 	height: 100%;
+	transition: all 0.1s ease;
 
 	.data-container {
 		position: absolute;

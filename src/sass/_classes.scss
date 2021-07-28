@@ -1,3 +1,5 @@
+@import "./_variables.scss";
+
 .border-box {
 	box-sizing: border-box;
 }
@@ -23,7 +25,61 @@ $basic-colors: red, green, blue, yellow;
 	width: fit-content;
 	margin: 0 auto;
 
+	&.h-60 {
+		height: 60px;
+	}
+
 	&.h-80 {
 		height: 80px;
+	}
+}
+
+.btn {
+	display: inline-block;
+	vertical-align: top;
+	width: fit-content;
+	height: 40px;
+	padding: 0 10px 0 10px;
+	line-height: 40px;
+	text-align: center;
+	font-size: 20px;
+	box-sizing: border-box;
+	border: 1px solid $light-gray;
+	border-radius: 6px;
+	cursor: pointer;
+
+	// button styles
+
+	&.primary {
+		border: none;
+		background-color: $primary;
+		color: $light;
+
+		&:hover {
+			background-color: darken($primary, 5%);
+		}
+
+		&:active {
+			background-color: darken($primary, 10%);
+		}
+	}
+
+	// button modifiers
+
+	&.square {
+		width: 40px;
+		padding: 0;
+	}
+}
+
+// margin classes
+$margin-sizes: 5, 10, 20;
+$directions: top, right, bottom, left;
+
+@each $size in $margin-sizes {
+	@each $direction in $directions {
+		.m#{str-slice($direction, 1, 1)}-#{$size} {
+			margin-#{$direction}: #{$size}px;
+		}
 	}
 }

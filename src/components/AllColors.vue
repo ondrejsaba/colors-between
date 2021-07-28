@@ -31,6 +31,6 @@ export default {
 #all-colors {
 	position: relative;
 	width: 100vw;
-	height: calc(100vh - 160px);
+	height: calc(100vh - 220px);
 }
 </style>

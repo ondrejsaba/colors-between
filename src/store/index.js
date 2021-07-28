@@ -10,7 +10,6 @@ export default createStore({
   			const Color = require('color')
 
   			state.colors = payload.map((color, index) => {
-
   				return {
   					hex: color,
   					rgb: Color(color).rgb().color,
@@ -55,6 +54,11 @@ export default createStore({
   		}
   	},
   	getters: {
+  		generateColor() {
+      		const hexKeys = [...Array(10).keys(), "A", "B", "C", "D", "E", "F"]
+
+      		return '#' + [...Array(6).keys()].map(() => hexKeys[Math.floor(Math.random() * hexKeys.length)]).join("")
+    	},
   		colorsList: (state) => {
   			return state.colors
   		},
@@ -69,6 +73,17 @@ export default createStore({
   		}
   	},
   	actions: {
+  		setDefaultColors: (context) => {
+  			const Color = require('color')
+
+  			let generatedColors = []
+  			for (let i = 0; i < 2; i++) {
+  				generatedColors.push(context.getters.generateColor)
+  			}
+
+  			context.commit('setDefaultColors', generatedColors)
+  			context.commit('generateColorsInbetween')
+  		},
   		addColor: (context) => {
   			if (context.state.colorCount < 12) {
   				context.state.colorCount += 1
@@ -80,8 +95,23 @@ export default createStore({
   				context.state.colorCount -= 1
   				context.commit('generateColorsInbetween')
   			}
+  		},
+  		shuffleColors: (context) => {
+  			const Color = require('color')
+
+  			context.state.colors = [...Array(2).keys()].map(index => {
+  				return {
+  					hex: context.getters.generateColor,
+  					id: index
+  				}
+  			}).map(color => {
+  				return {
+  					...color,
+  					rgb: Color(color.hex).rgb().color
+  				}
+  			})
+
+  			context.commit('generateColorsInbetween')
   		}
-  	},
-  	modules: {
   	}
 })
