@@ -104,6 +104,14 @@ $basic-colors: red, green, blue, yellow;
 	&.borderless {
 		border: none;
 	}
+
+	&.inactive {
+		opacity: 0.4;
+
+		&:active {
+			transform: scale(1) !important;
+		}
+	}
 }
 
 // margin classes

@@ -1,0 +1,45 @@
+{
+	"en": {
+
+		"navbar": {
+			"shuffleBtn": "Shuffle base colors"
+		},
+
+		"menu": {
+			"colorMode": "Color mode",
+			"language": "Language"
+		},
+
+		"form": {
+			"colors": "colors"
+		},
+
+		"colorColumn": {
+			"copy": "Copy color",
+			"copied": "Color copied!"
+		}
+
+	},
+
+	"cz": {
+
+		"navbar": {
+			"shuffleBtn": "Náhodné základní barvy"
+		},
+
+		"menu": {
+			"colorMode": "Barevné schéma",
+			"language": "Jazyk"
+		},
+
+		"form": {
+			"colors": "barev"
+		},
+
+		"colorColumn": {
+			"copy": "Zkopírovat barvu",
+			"copied": "Barva zkopírována!"
+		}
+
+	}
+}

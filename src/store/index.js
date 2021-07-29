@@ -1,12 +1,23 @@
 import { createStore } from 'vuex'
+import Messages from '../json/messages.json'
 
 export default createStore({
  	state: {
  		// color data
   		colors: [],
   		colorCount: 5,
+
   		// menu
-  		showMenu: false
+  		showMenu: false,
+
+  		// localStorage options to vuex state
+  		options: {
+  			colorMode: "light",
+  			language: "en"
+  		},
+
+  		// messages loaded from a json config file
+  		messages: Messages
   	},
   	mutations: {
   		// colors data manipulation
@@ -73,9 +84,15 @@ export default createStore({
   				id: position
   			}
   		},
+
   		// menu
   		setShowMenu: (state) => {
   			state.showMenu = !state.showMenu
+  		},
+
+  		// localStorage and options
+  		syncOptions: (state) => {
+  			state.options = JSON.parse(localStorage.getItem('options'))
   		}
   	},
   	getters: {
@@ -97,9 +114,29 @@ export default createStore({
   		lastColor: (state) => {
   			return state.colors[state.colors.length-1]
   		},
+  		canAddColor: (state) => {
+  			return state.colorCount < 12
+  		},
+  		canRemoveColor: (state) => {
+  			return state.colorCount > 5
+  		},
+
   		// menu getters
   		showMenu: (state) => {
   			return state.showMenu
+  		},
+
+  		// localStorage options
+  		options: (state) => {
+  			return state.options
+  		},
+  		darkMode: (state) => {
+  			return state.options.colorMode == 'dark'
+  		},
+
+  		// messages loaded from a json config file
+  		messages: (state) => {
+  			return state.messages[state.options.language]
   		}
   	},
   	actions: {
@@ -115,13 +152,13 @@ export default createStore({
   			context.commit('generateColorsInbetween')
   		},
   		addColor: (context) => {
-  			if (context.state.colorCount < 12) {
+  			if (context.getters.canAddColor) {
   				context.state.colorCount += 1
   				context.commit('generateColorsInbetween')
   			}
   		},
   		removeColor: (context) => {
-  			if (context.state.colorCount > 3) {
+  			if (context.getters.canRemoveColor) {
   				context.state.colorCount -= 1
   				context.commit('generateColorsInbetween')
   			}

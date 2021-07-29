@@ -1,5 +1,9 @@
 <template>
-	<section id="color-selection-form" v-if="firstColor && lastColor">
+	<section
+		id="color-selection-form"
+		v-if="firstColor && lastColor"
+		:class="{ dark: darkMode }"
+	>
 		<div id="colors-form" class="center-container h-80">
 			<div class="input-wrapper">
 				<input
@@ -39,17 +43,25 @@
 		</div>
 
 		<div id="color-count-form" class="center-container h-80">
-			<div class="btn square active-shrink mt-10 mr-20" @click="removeColor">
+			<div
+				class="btn square darken-if-dark active-shrink mt-10 mr-20"
+				:class="{ inactive: !canRemoveColor }"
+				@click="removeColor"
+			>
 				<span class="material-icons">
 					remove
 				</span>
 			</div>
 
 			<div id="color-count-label">
-				<h1>{{ colorCount }} colors</h1>
+				<h1>{{ colorCount }} {{ messages.form.colors }}</h1>
 			</div>
 
-			<div class="btn square active-shrink mt-10 ml-20" @click="addColor">
+			<div
+				class="btn square darken-if-dark active-shrink mt-10 ml-20"
+				:class="{ inactive: !canAddColor }"
+				@click="addColor"
+			>
 				<span class="material-icons">
 					add
 				</span>
@@ -100,10 +112,14 @@ export default {
 	},
 	computed: {
 		...mapGetters([
+			'messages',
 			'colorsList',
 			'colorCount',
 			'firstColor',
-			'lastColor'
+			'lastColor',
+			'canAddColor',
+			'canRemoveColor',
+			'darkMode'
 		])
 	}
 }
@@ -116,6 +132,30 @@ export default {
 	position: relative;
 	width: 100vw;
 	height: 160px;
+	background-color: $light;
+	color: $dark;
+
+	&.dark {
+		background-color: $dark;
+		color: $light;
+
+		.btn {
+			&.darken-if-dark {
+				border: 1px solid lighten($dark, 10%);
+				background-color: lighten($dark, 5%);
+			}
+
+			span.material-icons {
+				color: $light;
+			}
+		}
+
+		input[type=text] {
+			border: 1px solid lighten($dark, 10%);
+			background-color: lighten($dark, 15%);
+			color: $light;
+		}
+	}
 }
 
 .input-wrapper {
@@ -167,7 +207,6 @@ export default {
 		font-size: 32px;
 		line-height: 60px;
 		text-align: center;
-		color: $dark;
 	}
 }
 </style>

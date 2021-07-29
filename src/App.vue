@@ -52,6 +52,15 @@ export default {
   },
   mounted() {
     this.$store.dispatch('setDefaultColors')
+
+    if (localStorage.options) {
+      this.$store.commit('syncOptions')
+    } else {
+      localStorage.setItem('options', JSON.stringify({
+        colorMode: "light",
+        language: "en"
+      }))
+    }
   }
 }
 </script>

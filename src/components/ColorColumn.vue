@@ -14,10 +14,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
 	data() {
 		return {
-			hintText: "Copy to clipboard"
+			alternateHint: false
 		}
 	},
 	props: {
@@ -25,11 +27,19 @@ export default {
 	},
 	methods: {
 		copyColor() {
-			const hintTextBefore = this.hintText
-			this.hintText = "Color copied!"
+			this.alternateHint = !this.alternateHint
 			setTimeout(() => {
-				this.hintText = hintTextBefore
+				this.alternateHint = !this.alternateHint
 			}, 2000)
+		}
+	},
+	computed: {
+		...mapGetters([
+			'messages'
+		]),
+		hintText() {
+			const message = !this.alternateHint ? 'copy' : 'copied'
+			return this.messages.colorColumn[message]
 		}
 	}
 }

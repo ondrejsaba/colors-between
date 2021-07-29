@@ -1,5 +1,5 @@
 <template>
-	<nav>
+	<nav :class="{ dark: darkMode }">
 		<div class="btn square borderless size-fluid ml-5 mt-5" @click="setShowMenu">
 			<span class="material-icons">
 				{{ showMenu ? 'close' : 'menu'}}
@@ -12,7 +12,7 @@
 
 		<div id="navbar-actions">
 			<div class="btn primary" @click="shuffleColors">
-				Shuffle endpoint colors
+				{{ messages.navbar.shuffleBtn }}
 				<span class="material-icons">
 					shuffle
 				</span>
@@ -35,7 +35,10 @@ export default {
 	},
 	computed: {
 		...mapGetters([
-			'showMenu'
+			'messages',
+			'showMenu',
+			'options',
+			'darkMode'
 		])
 	}
 }
@@ -50,6 +53,8 @@ nav {
 	height: 50px;
 	box-sizing: border-box;
 	border-bottom: 1px solid darken($light, 10%);
+	background-color: $light;
+	color: $dark;
 
 	#navbar-title, #navbar-actions {
 		display: inline-block;
@@ -62,7 +67,6 @@ nav {
 			margin: 0 10px 0 10px;
 			font-size: 24px;
 			line-height: 50px;
-			color: $dark;
 		}
 	}
 
@@ -73,6 +77,16 @@ nav {
 		width: fit-content;
 		height: 100%;
 		margin: 5px;
+	}
+
+	&.dark {
+		background-color: $dark;
+		color: $light;
+		border-bottom: 1px solid darken($dark, 5%);
+
+		.btn span.material-icons {
+			color: $light;
+		}
 	}
 }
 </style>
