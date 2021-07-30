@@ -10,6 +10,13 @@
 				{{ hintText }}
 			</div>
 		</div>
+
+		<input
+			type="text"
+			class="copyInput"
+			ref="copyInput"
+			:value="colorData.hex"
+		/>
 	</div>
 </template>
 
@@ -27,7 +34,14 @@ export default {
 	},
 	methods: {
 		copyColor() {
+			// change hint text
 			this.alternateHint = !this.alternateHint
+
+			// put text to clipboard
+			this.$refs.copyInput.select()
+			document.execCommand("copy")
+
+			// revert hint text
 			setTimeout(() => {
 				this.alternateHint = !this.alternateHint
 			}, 2000)
@@ -92,5 +106,17 @@ export default {
 			display: none;
 		}
 	}
+}
+
+.copyInput {
+	/* usually all you need to do in order to hide
+	an element is to set its display property to none,
+	this time however you can't do that because you
+	wouldn't be able to copy text from it */
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	top: -100px;
+	opacity: 0;
 }
 </style>
