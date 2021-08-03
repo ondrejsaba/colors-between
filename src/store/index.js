@@ -7,6 +7,13 @@ export default createStore({
   		colors: [],
   		colorCount: 5,
 
+  		// color picker
+  		colorPicker: {
+  			show: false,
+  			input: "",
+  			pickedColor: ""
+  		},
+
   		// menu
   		showMenu: false,
 
@@ -85,9 +92,29 @@ export default createStore({
   			}
   		},
 
+  		// color picker
+  		setShowColorPicker: (state, payload) => {
+  			if ('showInput' in payload) {
+  				if ((['first', 'last'].includes(payload.showInput)
+  					&& state.colorPicker.input == '')
+  					|| payload.showInput == '') {
+  					state.colorPicker = {
+						  input: payload.showInput,
+						  show: !state.colorPicker.show,
+						  pickedColor: state.colors[payload.showInput == "first" ? 0 : state.colors.length-1].hex
+					}
+  				}
+  			}
+  		},
+
   		// menu
   		setShowMenu: (state) => {
   			state.showMenu = !state.showMenu
+  			state.colorPicker = {
+  				...state.colorPicker,
+  				show: false,
+  				input: ""
+  			}
   		},
 
   		// localStorage and options
@@ -119,6 +146,17 @@ export default createStore({
   		},
   		canRemoveColor: (state) => {
   			return state.colorCount > 5
+  		},
+
+  		// color picker getters
+  		colorPicker: (state) => {
+  			return state.colorPicker
+  		},
+  		colorEditFirst: (state) => {
+  			return state.colorPicker.input == 'first'
+  		},
+  		colorEditLast: (state) => {
+  			return state.colorPicker.input == 'last'
   		},
 
   		// menu getters

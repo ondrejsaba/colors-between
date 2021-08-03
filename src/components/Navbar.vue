@@ -11,6 +11,26 @@
 		</div>
 
 		<div id="navbar-actions">
+			<div id="minor-actions" class="inline-block relative mr-5">
+				<div class="btn borderless square">
+					<span class="material-icons">
+						arrow_back
+					</span>
+				</div>
+
+				<div class="btn borderless square">
+					<span class="material-icons">
+						arrow_forward
+					</span>
+				</div>
+
+				<div class="btn borderless square">
+					<span class="material-icons">
+						star_outline
+					</span>
+				</div>
+			</div>
+
 			<div class="btn primary" @click="shuffleColors">
 				{{ messages.navbar.shuffleBtn }}
 				<span class="material-icons">
@@ -86,6 +106,12 @@ nav {
 
 		.btn span.material-icons {
 			color: $light;
+		}
+
+		#navbar-actions {
+			.btn {
+				color: $light;
+			}
 		}
 	}
 }

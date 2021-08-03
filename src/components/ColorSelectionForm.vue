@@ -5,7 +5,10 @@
 		:class="{ dark: darkMode }"
 	>
 		<div id="colors-form" class="center-container h-80">
-			<div class="input-wrapper">
+			<div
+				class="input-wrapper"
+				:class="{ inactive: colorEditLast }"
+			>
 				<input
 					ref="firstColor"
 					type="text"
@@ -18,12 +21,19 @@
 				>
 				<div
 					class="color-preview"
+					:class="{ close: colorEditFirst }"
 					:style="{ backgroundColor: firstColor.hex }"
+					@click="setShowColorPicker({
+						showInput: !colorEditFirst ? 'first' : ''
+					})"
 				>
 				</div>
 			</div>
 
-			<div class="input-wrapper">
+			<div
+				class="input-wrapper"
+				:class="{ inactive: colorEditFirst }"
+			>
 				<input
 					ref="lastColor"
 					type="text"
@@ -36,7 +46,11 @@
 				>
 				<div
 					class="color-preview"
+					:class="{ close: colorEditLast }"
 					:style="{ backgroundColor: lastColor.hex }"
+					@click="setShowColorPicker({
+						showInput: !colorEditLast ? 'last' : ''
+					})"
 				>
 				</div>
 			</div>
@@ -71,13 +85,16 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
 	methods: {
 		...mapActions([
 			'addColor',
 			'removeColor'
+		]),
+		...mapMutations([
+			'setShowColorPicker'
 		]),
 		setColorAtPosition(payload) {
 			// HEX code validation
@@ -119,6 +136,8 @@ export default {
 			'lastColor',
 			'canAddColor',
 			'canRemoveColor',
+			'colorEditFirst',
+			'colorEditLast',
 			'darkMode'
 		])
 	}
@@ -184,6 +203,20 @@ export default {
 		transition: all 0.1s ease;
 		cursor: pointer;
 
+		&.close {
+			background-color: $red !important;
+			box-sizing: border-box;
+			border: 1px solid darken($red, 15%);
+			text-align: center;
+			line-height: calc(30px - 2px);
+			font-size: 20px;
+			color: $light;
+
+			&:after {
+				content: 'x';
+			}
+		}
+
 		&:hover {
 			transform: scale(1.05);
 		}
@@ -192,6 +225,26 @@ export default {
 			transform: scale(1);
 		}
 	}
+
+	&.inactive {
+		opacity: 0.5;
+		filter: saturate(0);
+
+		input[type=text] {
+			cursor: default;
+		}
+
+		.color-preview {
+			cursor: default;
+			background-color: $light-gray !important;
+
+			&:hover {
+				transform: scale(1);
+			}
+		}
+	}
+
+	transition: all 0.1s ease;
 }
 
 #color-count-form {

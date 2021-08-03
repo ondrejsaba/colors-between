@@ -6,6 +6,8 @@
 		},
 
 		"menu": {
+			"options": "Options",
+			"favourites": "Favourites",
 			"colorMode": "Color mode",
 			"language": "Language"
 		},
@@ -28,6 +30,8 @@
 		},
 
 		"menu": {
+			"options": "Možnosti",
+			"favourites": "Oblíbené",
 			"colorMode": "Barevné schéma",
 			"language": "Jazyk"
 		},

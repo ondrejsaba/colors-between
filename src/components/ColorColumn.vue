@@ -79,6 +79,7 @@ export default {
 		color: $light;
 
 		h1 {
+			text-shadow: 2px 2px 32px rgba(0,0,0,0.5);
 			transition: all 0.1s ease;
 			cursor: pointer;
 

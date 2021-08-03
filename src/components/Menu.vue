@@ -1,97 +1,64 @@
 <template>
 	<div id="menu" :class="{ dark: darkMode }">
-		<div class="menu-row-btn" @click="switchColorMode">
-			{{ messages.menu.colorMode }} 
-			<div class="selection">
-				{{ colorModeSymbol }}
+		<div id="tabs">
+			<div class="center-container">
+				<div
+					class="tab"
+					:class="{ active: selectedTab == tab.component }"
+					@click="selectTab(tab.component)"
+					v-for="tab in tabs"
+					:key="tab.id"
+				>
+					{{ messages.menu[tab.id] }}
+				</div>
 			</div>
 		</div>
-
-		<div class="menu-row-btn" @click="switchLanguage">
-			{{ messages.menu.language }}
-			<div class="selection">
-				{{ languageSymbol }}
-			</div>
-		</div>
+		
+		<component :is="selectedTab"></component>
 	</div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import MenuOptions from './MenuOptions.vue'
+import MenuFavourites from './MenuFavourites.vue'
 
 export default {
+	components: {
+		MenuOptions,
+		MenuFavourites
+	},
+	data() {
+		return {
+			selectedTab: "MenuOptions",
+			tabs: [
+				{id: 'options', component: 'MenuOptions'},
+				{id: 'favourites', component: 'MenuFavourites'}
+			]
+		}
+	},
 	methods: {
-		switchColorMode() {
-			const colorModes = ["light", "dark"]
-
-			localStorage.setItem('options', JSON.stringify({
-				...this.options,
-				colorMode: colorModes.filter(mode => {
-					return mode != this.options.colorMode 
-				}).join()
-			}))
-
-			this.$store.commit('syncOptions')
-		},
-		switchLanguage() {
-			const languages = ["en", "cz"]
-			const currentLanguage = {
-				name: this.options.language,
-				index: languages.indexOf(this.options.language)
-			}
-
-			let nextLanguage
-			if (currentLanguage.index+1 < languages.length) {
-				nextLanguage = languages[currentLanguage.index+1]
-			} else {
-				nextLanguage = languages[0]
-			}
-
-			localStorage.setItem('options', JSON.stringify({
-				...this.options,
-				language: nextLanguage
-			}))
-
-			this.$store.commit('syncOptions')
+		selectTab(tabName) {
+			this.selectedTab = tabName
 		}
 	},
 	computed: {
 		...mapGetters([
 			'messages',
-			'options',
 			'darkMode'
 		]),
-		colorModeSymbol() {
-			return this.options.colorMode == 'light' ? '☀️' : '🌙'
+		messageOptions() {
+			return this.messages.menu.options
 		},
-		languageSymbol() {
-			const flags = {
-				'en': '🇬🇧',
-				'cz': '🇨🇿'
-			}
-
-			return flags[this.options.language]
+		messageFavourites() {
+			return this.messages.menu.favourites
 		}
 	}
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../sass/_variables.scss";
-
-@mixin selection-border {
-	&:hover {
-		.selection {
-			border-left: 1px solid darken($primary, 5%);
-		}
-	}
-
-	&:active {		
-		.selection {
-			border-left: 1px solid darken($primary, 10%);
-		}
-	}
-}
 
 #menu {
 	position: absolute;
@@ -99,51 +66,54 @@ export default {
 	height: 100%;
 	background-color: $light;
 
-	.menu-row-btn {
-		position: relative;
-		width: calc(100% - 20px);
+	#tabs {
+		width: 100%;
 		height: 50px;
-		border-bottom: 1px solid darken($light, 5%);
-		line-height: 50px;
-		text-align: left;
-		padding-left: 20px;
-		font-size: 18px;
-		cursor: pointer;
 
-		&:hover {
-			background-color: $primary;
-			color: $light;
-		}
-
-		&:active {
-			background-color: darken($primary, 5%);
-		}
-
-		.selection {
+		.tab {
 			display: inline-block;
-			position: absolute;
-			right: 0;
-			width: 60px;
-			height: 100%;
-			border-left: 1px solid darken($light, 5%);
+			width: fit-content;
+			padding: 0 20px 0 20px;
 			text-align: center;
-		}
+			font-size: 14px;
+			color: lighten($dark, 30%);
+			line-height: calc(50px - 3px);
+			box-sizing: border-box;
 
-		@include selection-border();
+			&.active {
+				font-weight: 600;
+				border-bottom: 3px solid $primary;
+				color: $dark;
+			}
+
+			&:not(.active) {
+				&:hover {
+					background-color: darken($light, 10%);
+					border-bottom: 3px solid darken($light, 10%);
+				}
+
+				&:active {
+					transform: scale(0.975);
+				}
+			}
+
+			transition: transform 0.1s ease;
+			cursor: pointer;
+		}
 	}
 
 	&.dark {
-		background-color: lighten($dark, 5%);
-		color: $light;
+		#tabs {
+			.tab {
+				color: $light;
 
-		.menu-row-btn {
-			border-bottom: 1px solid $dark;
-
-			.selection {
-				border-left: 1px solid $dark;
+				&:not(.active) {
+					&:hover {
+						background-color: lighten($dark, 3%);
+						border-bottom: 3px solid lighten($dark, 3%);
+					}
+				}
 			}
-
-			@include selection-border();
 		}
 	}
 }

@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+.inline-block {
+	display: inline-block;
+}
+
 // for debugging
 $basic-colors: red, green, blue, yellow;
 @each $color in $basic-colors {
@@ -11,6 +15,8 @@ $basic-colors: red, green, blue, yellow;
 		border: 1px solid $color;
 	}
 }
+
+// containers
 
 .full-flex-container {
 	position: relative;
@@ -25,6 +31,10 @@ $basic-colors: red, green, blue, yellow;
 	width: fit-content;
 	margin: 0 auto;
 
+	&.h-50 {
+		height: 50px;
+	}
+
 	&.h-60 {
 		height: 60px;
 	}
@@ -33,6 +43,15 @@ $basic-colors: red, green, blue, yellow;
 		height: 80px;
 	}
 }
+
+.absolute-center {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+// buttons
 
 .btn {
 	display: inline-block;

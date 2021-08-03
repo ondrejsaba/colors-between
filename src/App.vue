@@ -1,15 +1,32 @@
 <template>
   <main>
     <navbar />
-    <transition-group name="fade">
-      <screen-darken v-if="showMenu" @hide="setShowMenu">
+    <transition name="fade">
+      <screen-darken
+        v-if="showMenu"
+        @hide="setShowMenu"
+      >
         <transition name="slide" appear>
           <sidebar-menu />
         </transition>
       </screen-darken>
-    </transition-group>
+    </transition>
 
     <all-colors />
+    <transition name="fade">
+      <screen-darken
+        v-if="colorPicker.show" 
+        :smallerSize="true"
+        @hide="setShowColorPicker({
+          showInput: ''
+        })"
+      >
+        <transition name="center-zoom" appear>
+          <color-picker />
+        </transition>
+      </screen-darken>
+    </transition>
+
     <color-select-form />
   </main>
 
@@ -26,6 +43,7 @@ import Menu from './components/Menu.vue'
 import AllColors from './components/AllColors.vue'
 import ColorSelectionForm from './components/ColorSelectionForm.vue'
 import ScreenDarken from './components/ScreenDarken.vue'
+import ColorPickerBox from './components/ColorPickerBox.vue'
 
 export default {
   name: 'App',
@@ -35,19 +53,22 @@ export default {
     'sidebar-menu': Menu,
     'all-colors': AllColors,
     'color-select-form': ColorSelectionForm,
-    'screen-darken': ScreenDarken
+    'screen-darken': ScreenDarken,
+    'color-picker': ColorPickerBox
   },
   methods: {
     ...mapActions([
       'shuffleColors'
     ]),
     ...mapMutations([
-      'setShowMenu'
+      'setShowMenu',
+      'setShowColorPicker'
     ])
   },
   computed: {
     ...mapGetters([
-      'showMenu'
+      'showMenu',
+      'colorPicker'
     ])
   },
   mounted() {
