@@ -1,5 +1,5 @@
 <template>
-    <div class="color-picker center">
+    <div class="color-picker center" :class="{ dark: darkMode }">
         <div class="saturation-picker-container">
             <saturation-picker
                 :pickedShade="pickedShade"
@@ -18,24 +18,19 @@
                 @pickShade="changeShade"
             />
         </div>
-
-        <div class="color-info-container" v-if="showColorInfo">
-            <color-info />
-        </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SaturationPicker from './SaturationPicker.vue'
 import ShadePicker from './ShadePicker.vue'
-import ColorInfo from './ColorInfo.vue'
 import colorConvert from './mixins/colorConvert.js'
 
 export default {
     components: {
         'saturation-picker': SaturationPicker,
-        'shade-picker': ShadePicker,
-        'color-info': ColorInfo
+        'shade-picker': ShadePicker
     },
     props: {
         'showColorInfo': Boolean,
@@ -68,6 +63,11 @@ export default {
             this.$emit('update', color)
         }
     },
+    computed: {
+        ...mapGetters([
+            'darkMode'
+        ])
+    },
     mounted() {
         if (this.color) {
             // convert HEX to RGB then to HSL with saturation 100% and lightness 50%
@@ -84,7 +84,7 @@ export default {
 </script>
 
 <style lang="scss">
-$light-gray: darken(#fff, 10%);
+@import "../../sass/_variables.scss";
 
 .color-picker {
     position: relative;
@@ -92,12 +92,15 @@ $light-gray: darken(#fff, 10%);
     height: calc(100% - 40px);
     border: 1px solid $light-gray;
 
-    // delete this in the build version
     &.center {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translateX(-50%) translateY(-50%);
+    }
+
+    &.dark {
+        border: 1px solid lighten($dark, 5%);
     }
 
     @mixin component-container {
@@ -109,18 +112,11 @@ $light-gray: darken(#fff, 10%);
     .saturation-picker-container {
         @include component-container();
         height: calc(100% - 60px);
-        border-bottom: 1px solid $light-gray;
     }
 
     .shade-picker-container {
         @include component-container();
         height: 60px;
-    }
-
-    .color-info-container {
-        @include component-container();
-        height: 200px;
-        border-top: 1px solid $light-gray;
     }
 }
 </style>

@@ -1,23 +1,27 @@
 <template>
   <main>
     <navbar />
+
+    <!-- Menu -->
     <transition name="fade">
       <screen-darken
         v-if="showMenu"
         @hide="setShowMenu"
       >
         <transition name="slide" appear>
-          <sidebar-menu />
+          <sidebar-menu v-if="showMenu" />
         </transition>
       </screen-darken>
     </transition>
 
     <all-colors />
+
+    <!-- Color picker input -->
     <transition name="fade">
       <screen-darken
         v-if="colorPicker.show" 
         :smallerSize="true"
-        @hide="setShowColorPicker({
+        @hide="this.setShowColorPicker({
           showInput: ''
         })"
       >
@@ -27,11 +31,24 @@
       </screen-darken>
     </transition>
 
+    <!-- Dialog -->
+    <transition name="fade">
+      <screen-darken
+        v-if="dialogState.show"
+        :smallerSize="true"
+        @hide="setShowDialog"
+      >
+        <transition name="center-zoom" appear>
+          <popup-dialog />
+        </transition>
+      </screen-darken>
+    </transition>
+
     <color-select-form />
   </main>
 
   <GlobalEvents
-    @keyup.space="shuffleColors"
+    @keyup.space="tryToShuffleColors"
   />
 </template>
 
@@ -44,6 +61,7 @@ import AllColors from './components/AllColors.vue'
 import ColorSelectionForm from './components/ColorSelectionForm.vue'
 import ScreenDarken from './components/ScreenDarken.vue'
 import ColorPickerBox from './components/ColorPickerBox.vue'
+import Dialog from './components/Dialog.vue'
 
 export default {
   name: 'App',
@@ -54,7 +72,8 @@ export default {
     'all-colors': AllColors,
     'color-select-form': ColorSelectionForm,
     'screen-darken': ScreenDarken,
-    'color-picker': ColorPickerBox
+    'color-picker': ColorPickerBox,
+    'popup-dialog': Dialog
   },
   methods: {
     ...mapActions([
@@ -62,14 +81,25 @@ export default {
     ]),
     ...mapMutations([
       'setShowMenu',
-      'setShowColorPicker'
-    ])
+      'setShowColorPicker',
+      'setShowDialog'
+    ]),
+    tryToShuffleColors() {
+      if (!this.dialogState.show) {
+        this.shuffleColors()
+      }
+    }
   },
   computed: {
     ...mapGetters([
       'showMenu',
-      'colorPicker'
-    ])
+      'colorPicker',
+      'dialogState'
+    ]),
+    canDarken() {
+      return this.colorPicker.show || this.dialogState.show
+    }
+
   },
   mounted() {
     this.$store.dispatch('setDefaultColors')

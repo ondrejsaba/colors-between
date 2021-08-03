@@ -9,7 +9,8 @@
 			"options": "Options",
 			"favourites": "Favourites",
 			"colorMode": "Color mode",
-			"language": "Language"
+			"language": "Language",
+			"savePalette": "Save current palette"
 		},
 
 		"form": {
@@ -33,7 +34,8 @@
 			"options": "Možnosti",
 			"favourites": "Oblíbené",
 			"colorMode": "Barevné schéma",
-			"language": "Jazyk"
+			"language": "Jazyk",
+			"savePalette": "Uložit současnou paletu"
 		},
 
 		"form": {

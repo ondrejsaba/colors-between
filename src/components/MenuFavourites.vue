@@ -1,36 +1,67 @@
 <template>
     <div id="favourites-container">
-        <div class="favourite-palette-container mt-10">
-            <div class="palette"></div>
+        <div class="menu-row-btn">
+            
+        </div>
+    </div>
+
+    <div id="favourites-btns-container">
+        <div class="btn primary center" @click="openSaveDialog">
+            {{ messages.menu.savePalette }}
         </div>
     </div>
 </template>
 
 <script>
-export default {
+import { mapGetters, mapMutations } from 'vuex'
 
+export default {
+    methods: {
+        ...mapMutations([
+            'setShowMenu',
+            'setDialog'
+        ]),
+        openSaveDialog() {
+            this.setShowMenu()
+            this.setDialog({
+                show: true,
+                width: 400,
+                height: 300,
+                component: 'SavePaletteForm'
+            })
+        }
+    },
+    computed: {
+        ...mapGetters([
+            'messages'
+        ])
+    }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../sass/_variables.scss";
 
 #favourites-container {
     position: relative;
     width: 100%;
-    height: auto;
+    height: calc(100% - 120px);
 
     .favourite-palette-container {
         position: relative;
-        width: calc(100% - 20px);
-        height: auto;
-        margin-left: 10px;
-        box-sizing: border-box;
-        border: 1px solid darken($light, 15%);
+    }
+}
 
-        .palette {
-            width: 100%;
-            height: 100px;
+#favourites-btns-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+
+    .btn {
+        &.center {
+            display: block;
+            margin: 10px auto;
         }
     }
 }

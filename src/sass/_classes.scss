@@ -8,6 +8,10 @@
 	display: inline-block;
 }
 
+.right {
+	float: right;
+}
+
 // for debugging
 $basic-colors: red, green, blue, yellow;
 @each $color in $basic-colors {
@@ -70,6 +74,10 @@ $basic-colors: red, green, blue, yellow;
 	cursor: pointer;
 	transition: all 0.1s ease;
 
+	&:not(.borderless, .primary, .red, .dark):hover {
+		border: 1px solid darken($light-gray, 10%);
+	}
+
 	// icons
 
 	span.material-icons {
@@ -90,6 +98,20 @@ $basic-colors: red, green, blue, yellow;
 
 		&:active {
 			background-color: darken($primary, 10%);
+		}
+	}
+
+	&.red {
+		border: none;
+		background-color: $red;
+		color: $light;
+
+		&:hover {
+			background-color: darken($red, 5%);
+		}
+
+		&:active {
+			background-color: darken($red, 10%);
 		}
 	}
 
@@ -130,6 +152,19 @@ $basic-colors: red, green, blue, yellow;
 		&:active {
 			transform: scale(1) !important;
 		}
+	}
+
+	&.dark {
+		border: 1px solid lighten($dark-gray, 5%);
+		color: $light;
+
+		&:hover {
+			border: 1px solid lighten($dark-gray, 10%);
+		}
+	}
+
+	&.less-weight {
+		font-weight: 400;
 	}
 }
 

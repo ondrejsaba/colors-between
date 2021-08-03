@@ -17,6 +17,14 @@ export default createStore({
   		// menu
   		showMenu: false,
 
+		// dialog
+		dialog: {
+			show: false,
+			width: 400,
+			height: 200,
+			component: null
+		},
+
   		// localStorage options to vuex state
   		options: {
   			colorMode: "light",
@@ -105,6 +113,10 @@ export default createStore({
 					}
   				}
   			}
+
+			if (state.dialog.show) {
+				state.dialog.show = !state.dialog.show
+			}
   		},
 
   		// menu
@@ -115,7 +127,26 @@ export default createStore({
   				show: false,
   				input: ""
   			}
+			
+			if (state.dialog.show) {
+				  state.dialog.show = !state.dialog.show
+			}
   		},
+
+		// dialog
+		setShowDialog: (state) => {
+			state.dialog.show = !state.dialog.show
+		},
+		setDialog: (state, payload) => {
+			const {show, width, height, component} = payload
+
+			state.dialog = {
+				show: show ? show : state.dialog.show,
+				width: width ? width : state.dialog.width,
+				height: height ? height : state.dialog.height,
+				component: component ? component : state.dialog.component
+			}
+		},
 
   		// localStorage and options
   		syncOptions: (state) => {
@@ -163,6 +194,11 @@ export default createStore({
   		showMenu: (state) => {
   			return state.showMenu
   		},
+
+		// dialog getters
+		dialogState: (state) => {
+			return state.dialog
+		},
 
   		// localStorage options
   		options: (state) => {
@@ -216,6 +252,22 @@ export default createStore({
   			})
 
   			context.commit('generateColorsInbetween')
+
+			if (context.state.showMenu) {
+				context.commit('setShowMenu')
+			}
+
+			if (context.state.colorPicker.show) {
+				context.state.colorPicker = {
+					show: false,
+					input: "",
+					pickedColor: ""
+				}
+			}
+
+			if (context.state.dialog.show) {
+				context.commit('setShowDialog')
+			}
   		}
   	}
 })

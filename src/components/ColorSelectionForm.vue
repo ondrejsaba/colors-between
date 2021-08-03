@@ -187,6 +187,7 @@ export default {
 		height: 40px;
 		margin: 20px;
 		font-size: 22px;
+		font-family: 'Inter';
 		padding-left: 10px;
 		box-sizing: border-box;
 		border: 1px solid $light-gray;
