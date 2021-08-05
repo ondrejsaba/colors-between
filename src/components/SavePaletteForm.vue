@@ -11,7 +11,13 @@
         </div>
 
         <label for="paletteName">{{ messages.dialog.paletteName }}</label>
-        <input type="text" id="paletteName" spellcheck="false" v-model="paletteName">
+        <input
+            type="text"
+            id="paletteName"
+            spellcheck="false"
+            v-model="paletteName"
+            @keydown.enter="savePalette"
+        >
 
         <div id="dialog-form-btns-container">
             <div
