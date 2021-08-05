@@ -26,11 +26,13 @@
 import { mapGetters, mapMutations } from 'vuex'
 import SavePaletteForm from './SavePaletteForm.vue'
 import DeletePalette from './DeletePalette.vue'
+import MessageDialog from './MessageDialog.vue'
 
 export default {
     components: {
         SavePaletteForm,
-        DeletePalette
+        DeletePalette,
+        MessageDialog
     },
     methods: {
         ...mapMutations([

@@ -200,8 +200,8 @@ export default createStore({
 		},
 		deletePalette: (state, payload) => {
 			const {name} = payload
-			console.log(name)
 
+			state.dialog.show = false
 			state.options.favourites = state.options.favourites.filter(favourite => favourite.name != name)
 
 			localStorage.setItem('options', JSON.stringify(state.options))

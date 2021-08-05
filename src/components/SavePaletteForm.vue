@@ -22,7 +22,7 @@
                 <span class="material-icons">
                     close
                 </span>
-                {{ messages.dialog.close }}
+                {{ messages.dialog.cancel }}
             </div>
             <div
                 class="btn primary right"
@@ -54,11 +54,34 @@ export default {
         savePalette() {
             if (this.paletteName.length) {
                 this.$store.commit('savePalette', {name: this.paletteName})
+
+                if (!this.dialogState.error) {
+                    setTimeout(() => {
+                        this.setDialog({
+                            show: true,
+                            width: 350,
+                            height: 100,
+                            component: "MessageDialog",
+                            data: {
+                                message: "Palette saved!",
+                                icon: "check"
+                            }
+                        })
+                    }, 100)
+                } else {
+                    this.setDialog({
+                        title: {
+                            show: true,
+					        message: this.messages.dialog.errors.exists
+                        },
+                        error: true
+                    })
+                }
             } else {
                 this.setDialog({
                     title: {
                         show: true,
-                        message: "Please name your palette."
+                        message: this.messages.dialog.errors.name
                     },
                     error: true
                 })
@@ -69,7 +92,8 @@ export default {
         ...mapGetters([
             'colorsList',
             'darkMode',
-            'messages'
+            'messages',
+            'dialogState'
         ])
     }
 }

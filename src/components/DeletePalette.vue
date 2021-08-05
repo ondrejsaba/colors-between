@@ -19,7 +19,7 @@
                 <span class="material-icons">
                     close
                 </span>
-                {{ messages.dialog.close }}
+                {{ messages.dialog.cancel }}
             </div>
 
             <div
@@ -41,11 +41,24 @@ import { mapGetters, mapMutations } from 'vuex'
 export default {
     methods: {
         ...mapMutations([
-            'setShowDialog'
+            'setShowDialog',
+            'setDialog'
         ]),
         deletePalette() {
             this.$store.commit('deletePalette', { name: this.dialogState.data.name })
-            this.setShowDialog()
+
+            setTimeout(() => {
+                this.setDialog({
+                    show: true,
+                    width: 350,
+                    height: 100,
+                    component: "MessageDialog",
+                    data: {
+                        message: "Palette deleted!",
+                        icon: "check"
+                    }
+                })
+            }, 100)
         }
     },
     computed: {

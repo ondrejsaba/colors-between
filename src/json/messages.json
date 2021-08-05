@@ -18,12 +18,17 @@
 		},
 
 		"dialog": {
-			"close": "Close",
+			"cancel": "Cancel",
 			"save": "Save",
 			"delete": "Delete",
 			"palettePreview": "Palette preview",
 			"paletteName": "Palette name",
-			"deletePalette": "Delete this palette?"
+			"deletePalette": "Delete this palette?",
+
+			"errors": {
+				"name": "Please name your palette.",
+				"exists": "This palette already exists."
+			}
 		},
 
 		"form": {
@@ -56,12 +61,17 @@
 		},
 
 		"dialog": {
-			"close": "Zavřít",
+			"cancel": "Zrušit",
 			"save": "Uložit",
 			"delete": "Smazat",
 			"palettePreview": "Náhled palety",
 			"paletteName": "Název palety",
-			"deletePalette": "Vymazat tuto paletu?"
+			"deletePalette": "Vymazat tuto paletu?",
+
+			"errors": {
+				"name": "Nezadali jste název palety.",
+				"exists": "Taková paleta již existuje."
+			}
 		},
 
 		"form": {
