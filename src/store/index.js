@@ -22,13 +22,22 @@ export default createStore({
 			show: false,
 			width: 400,
 			height: 200,
-			component: null
+			component: null,
+
+			title: {
+				show: false,
+				message: ""
+			},
+			error: false,
+
+			data: null
 		},
 
   		// localStorage options to vuex state
   		options: {
   			colorMode: "light",
-  			language: "en"
+  			language: "en",
+			favourites: []
   		},
 
   		// messages loaded from a json config file
@@ -39,7 +48,7 @@ export default createStore({
   		setDefaultColors: (state, payload) => {
   			const Color = require('color')
 
-  			state.colors = payload.map((color, index) => {
+  			state.colors = payload.map(color => {
   				return {
   					hex: color,
   					rgb: Color(color).rgb().color
@@ -99,6 +108,11 @@ export default createStore({
   				id: position
   			}
   		},
+		setColorCount: (state, payload) => {
+			const {count} = payload
+
+			state.colorCount = count
+		},
 
   		// color picker
   		setShowColorPicker: (state, payload) => {
@@ -138,14 +152,59 @@ export default createStore({
 			state.dialog.show = !state.dialog.show
 		},
 		setDialog: (state, payload) => {
-			const {show, width, height, component} = payload
+			const {show, width, height, component, title, error, data} = payload
 
 			state.dialog = {
+				...state.dialog,
 				show: show ? show : state.dialog.show,
 				width: width ? width : state.dialog.width,
 				height: height ? height : state.dialog.height,
-				component: component ? component : state.dialog.component
+				component: component ? component : state.dialog.component,
+				title: title ? title : {
+					show: false,
+					message: ""
+				},
+				error: error ? error : false,
+				data: data ? data : state.dialog.data
 			}
+		},
+
+		// favourites
+		savePalette: (state, payload) => {
+			const {name} = payload
+
+			let canSave = true
+			const currentPalette = state.colors.map(color => color.hex)
+			state.options.favourites.forEach(favourite => {
+				if (favourite.name == name || JSON.stringify(favourite.colors) == JSON.stringify(currentPalette)) {
+					canSave = false
+				}
+			})
+
+			if (canSave) {
+				state.options.favourites = [
+					...state.options.favourites,
+					{name: name, colors: currentPalette}
+				]
+
+				localStorage.setItem('options', JSON.stringify(state.options))
+				state.dialog.show = false
+			} else {
+				state.dialog.title = {
+					show: true,
+					message: "This palette already exists."
+				}
+
+				state.dialog.error = true
+			}
+		},
+		deletePalette: (state, payload) => {
+			const {name} = payload
+			console.log(name)
+
+			state.options.favourites = state.options.favourites.filter(favourite => favourite.name != name)
+
+			localStorage.setItem('options', JSON.stringify(state.options))
 		},
 
   		// localStorage and options
@@ -207,6 +266,9 @@ export default createStore({
   		darkMode: (state) => {
   			return state.options.colorMode == 'dark'
   		},
+		favourites: (state) => {
+			return state.options.favourites
+		},
 
   		// messages loaded from a json config file
   		messages: (state) => {

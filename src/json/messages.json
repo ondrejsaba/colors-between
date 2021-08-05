@@ -13,6 +13,19 @@
 			"savePalette": "Save current palette"
 		},
 
+		"favourites": {
+			"noFavourites": "You haven't marked any palette as your favourite yet."
+		},
+
+		"dialog": {
+			"close": "Close",
+			"save": "Save",
+			"delete": "Delete",
+			"palettePreview": "Palette preview",
+			"paletteName": "Palette name",
+			"deletePalette": "Delete this palette?"
+		},
+
 		"form": {
 			"colors": "colors"
 		},
@@ -36,6 +49,19 @@
 			"colorMode": "Barevné schéma",
 			"language": "Jazyk",
 			"savePalette": "Uložit současnou paletu"
+		},
+
+		"favourites": {
+			"noFavourites": "Zatím jste nepřidali žádnou paletu mezi své oblíbené."
+		},
+
+		"dialog": {
+			"close": "Zavřít",
+			"save": "Uložit",
+			"delete": "Smazat",
+			"palettePreview": "Náhled palety",
+			"paletteName": "Název palety",
+			"deletePalette": "Vymazat tuto paletu?"
 		},
 
 		"form": {

@@ -1,6 +1,6 @@
 <template>
     <div id="save-palette-form-container" :class="{ dark: darkMode }">
-        <label>Palette preview</label>
+        <label>{{ messages.dialog.palettePreview }}</label>
         <div id="palette-preview">
             <div
                 v-for="color in colorsList"
@@ -10,22 +10,25 @@
             ></div>
         </div>
 
-        <label for="paletteName">Palette name</label>
+        <label for="paletteName">{{ messages.dialog.paletteName }}</label>
         <input type="text" id="paletteName" spellcheck="false" v-model="paletteName">
 
-        <div id="save-palette-form-btns-container">
+        <div id="dialog-form-btns-container">
             <div
                 class="btn"
                 :class="{ dark: darkMode }"
-                @click="setShowDialog
-            ">
+                @click="setShowDialog"
+            >
                 <span class="material-icons">
                     close
                 </span>
-                Close
+                {{ messages.dialog.close }}
             </div>
-            <div class="btn primary right">
-                Save
+            <div
+                class="btn primary right"
+                @click="savePalette"
+            >
+                {{ messages.dialog.save }}
                 <span class="material-icons">
                     bookmark
                 </span>
@@ -45,13 +48,28 @@ export default {
     },
     methods: {
         ...mapMutations([
-            'setShowDialog'
-        ])
+            'setShowDialog',
+            'setDialog'
+        ]),
+        savePalette() {
+            if (this.paletteName.length) {
+                this.$store.commit('savePalette', {name: this.paletteName})
+            } else {
+                this.setDialog({
+                    title: {
+                        show: true,
+                        message: "Please name your palette."
+                    },
+                    error: true
+                })
+            }
+        }
     },
     computed: {
         ...mapGetters([
             'colorsList',
-            'darkMode'
+            'darkMode',
+            'messages'
         ])
     }
 }
@@ -65,71 +83,5 @@ export default {
     width: 100%;
     height: 100%;
     padding-top: 10px;
-
-    #palette-preview {
-        display: flex;
-        position: relative;
-        width: calc(100% - 40px);
-        height: 100px;
-        border: 1px solid $light-gray;
-        border-radius: 6px;
-        box-sizing: border-box;
-        margin: 10px 0 10px 20px;
-
-        .palette-preview-color {
-            flex-basis: 1;
-            flex-grow: 1;
-
-            &:first-of-type {
-                border-radius: 6px 0 0 6px;
-            }
-
-            &:last-of-type {
-                border-radius: 0 6px 6px 0;
-            }
-        }
-    }
-
-    label {
-        text-transform: uppercase;
-        color: $dark-gray;
-        font-size: 14px;
-        font-weight: 600;
-        margin-left: 20px;
-    }
-
-    input[type=text] {
-        width: calc(100% - 40px);
-        height: 40px;
-        margin: 10px 0 0 20px;
-        box-sizing: border-box;
-        border: 1px solid $light-gray;
-        border-radius: 6px;
-        padding-left: 10px;
-        font-size: 22px;
-        font-family: 'Inter';
-    }
-
-    #save-palette-form-btns-container {
-        width: calc(100% - 40px);
-        height: 40px;
-        margin: 20px 0 0 20px;
-    }
-
-    &.dark {
-        label {
-            color: $light-gray;
-        }
-
-        input[type=text] {
-            border: 1px solid lighten($dark, 10%);
-			background-color: lighten($dark, 20%);
-			color: $light;
-        }
-
-        #palette-preview {
-            border: 1px solid lighten($dark, 10%);
-        }
-    }
 }
 </style>

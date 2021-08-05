@@ -60,6 +60,20 @@ export default {
 <style lang="scss">
 @import "../sass/_variables.scss";
 
+@mixin selection-border {
+	&:hover {
+		.selection {
+			border-left: 1px solid darken($primary, 5%);
+		}
+	}
+
+	&:active {		
+		.selection {
+			border-left: 1px solid darken($primary, 10%);
+		}
+	}
+}
+
 #menu {
 	position: absolute;
 	width: 300px;
@@ -69,6 +83,8 @@ export default {
 	#tabs {
 		width: 100%;
 		height: 50px;
+		border-bottom: 1px solid darken($light, 10%);
+		box-sizing: border-box;
 
 		.tab {
 			display: inline-block;
@@ -102,8 +118,74 @@ export default {
 		}
 	}
 
+	.menu-row-btn {
+		position: relative;
+		width: calc(100% - 20px);
+		height: 50px;
+		border-bottom: 1px solid darken($light, 5%);
+		line-height: 50px;
+		text-align: left;
+		padding-left: 20px;
+		font-size: 18px;
+		cursor: pointer;
+
+		&:hover {
+			background-color: $primary;
+			color: $light;
+		}
+
+		&:active {
+			background-color: darken($primary, 5%);
+
+			.selection {
+				border-left: 1px solid darken($primary, 15%) !important;
+			}
+		}
+
+		.selection {
+			display: inline-block;
+			position: absolute;
+			right: 0;
+			width: 60px;
+			height: 100%;
+			border-left: 1px solid darken($light, 5%);
+			text-align: center;
+
+			span.material-icons {
+				line-height: 50px;
+			}
+
+			&.standalone {
+				&:hover {
+					background-color: darken($primary, 2%);
+				}
+
+				&:active {
+					background-color: darken($primary, 7%);
+				}
+			}
+
+			&.standalone-red {
+				&:hover {
+					background-color: $red;
+				}
+				
+				&:active {
+					background-color: darken($red, 5%);
+				}
+			}
+		}
+
+		@include selection-border();
+	}
+
 	&.dark {
+		background-color: lighten($dark, 5%);
+		color: $light;
+
 		#tabs {
+			border-bottom: 1px solid $dark;
+
 			.tab {
 				color: $light;
 
@@ -114,6 +196,16 @@ export default {
 					}
 				}
 			}
+		}
+
+		.menu-row-btn {
+			border-bottom: 1px solid $dark;
+
+			.selection {
+				border-left: 1px solid $dark;
+			}
+
+			@include selection-border();
 		}
 	}
 }

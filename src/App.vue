@@ -109,7 +109,8 @@ export default {
     } else {
       localStorage.setItem('options', JSON.stringify({
         colorMode: "light",
-        language: "en"
+        language: "en",
+        favourites: []
       }))
     }
   }
