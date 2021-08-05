@@ -12,6 +12,14 @@
 	float: right;
 }
 
+.t-01s {
+	transition: all 0.1s ease;
+}
+
+.t-025s {
+	transition: all 0.25s ease;
+}
+
 // for debugging
 $basic-colors: red, green, blue, yellow;
 @each $color in $basic-colors {

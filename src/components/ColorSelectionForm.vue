@@ -31,6 +31,18 @@
 			</div>
 
 			<div
+				class="btn borderless size-fluid mt-20 inline-block"
+				@click="switchColors"
+			>
+				<span
+					class="material-icons t-025s"
+					:style="switchBtnRotationStyle"
+				>
+					cached
+				</span>
+			</div>
+
+			<div
 				class="input-wrapper"
 				:class="{ inactive: colorEditFirst }"
 			>
@@ -88,6 +100,11 @@
 import { mapActions, mapMutations, mapGetters } from 'vuex'
 
 export default {
+	data() {
+		return {
+			switchBtnRotation: 0
+		}
+	},
 	methods: {
 		...mapActions([
 			'addColor',
@@ -106,7 +123,7 @@ export default {
 				const validCharacters = numbers.concat(letters)
 
 				for (let char of payload.value) {
-					if (!validCharacters.includes(char)) {
+					if (!validCharacters.includes(char.toUpperCase())) {
 						validHex = false
 					}
 				}
@@ -125,6 +142,14 @@ export default {
 			} else {
 				this.$refs.lastColor.value = this.colorsList[id].hex
 			}
+		},
+		switchColors() {
+			this.$store.commit('setDefaultColors', [
+				this.lastColor.hex, this.firstColor.hex
+			])
+			this.$store.commit('generateColorsInbetween')
+
+			this.switchBtnRotation += !this.switchBtnRotation ? 180 : (-180)
 		}
 	},
 	computed: {
@@ -139,7 +164,10 @@ export default {
 			'colorEditFirst',
 			'colorEditLast',
 			'darkMode'
-		])
+		]),
+		switchBtnRotationStyle() {
+			return { transform: `rotate(${this.switchBtnRotation}deg)` }
+		}
 	}
 }
 </script>

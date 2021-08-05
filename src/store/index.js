@@ -190,11 +190,6 @@ export default createStore({
 				localStorage.setItem('options', JSON.stringify(state.options))
 				state.dialog.show = false
 			} else {
-				state.dialog.title = {
-					show: true,
-					message: "This palette already exists."
-				}
-
 				state.dialog.error = true
 			}
 		},
