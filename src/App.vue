@@ -121,6 +121,7 @@ export default {
 @import "./sass/_classes.scss";
 @import "./sass/_variables.scss";
 @import "./sass/_animations.scss";
+@import "./sass/_mediaqueries.scss";
 
 #app {
   font-family: Inter, Arial, sans-serif;

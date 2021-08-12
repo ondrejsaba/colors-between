@@ -31,7 +31,8 @@
 			</div>
 
 			<div
-				class="btn borderless size-fluid mt-20 inline-block"
+				id="switch-colors-btn"
+				class="btn borderless size-fluid"
 				@click="switchColors"
 			>
 				<span
@@ -172,7 +173,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../sass/_variables.scss";
 
 #color-selection-form {
@@ -274,6 +275,11 @@ export default {
 	}
 
 	transition: all 0.1s ease;
+}
+
+#switch-colors-btn {
+	display: inline-block;
+	margin-top: 20px;
 }
 
 #color-count-form {

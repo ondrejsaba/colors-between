@@ -12,7 +12,10 @@
 
 		<div id="navbar-actions">
 			<div class="btn primary" @click="shuffleColors">
-				{{ messages.navbar.shuffleBtn }}
+				<span id="shuffle-text">
+					{{ messages.navbar.shuffleBtn }}
+				</span>
+
 				<span class="material-icons">
 					shuffle
 				</span>
@@ -44,7 +47,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../sass/_variables.scss";
 
 nav {

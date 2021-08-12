@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import "../sass/_variables.scss";
 
 .color-column {
@@ -80,7 +80,7 @@ export default {
 
 		h1 {
 			text-shadow: 2px 2px 32px rgba(0,0,0,0.5);
-			transition: all 0.1s ease;
+			font-size: 24px;
 			cursor: pointer;
 
 			&:hover + .color-copy {

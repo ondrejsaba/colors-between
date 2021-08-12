@@ -13,7 +13,7 @@
                     ></div>
 
                     <div class="favourite-name">
-                        {{ favourite.name }}
+                        {{ shortenNameToFit(favourite.name) }}
                     </div>
                 </div>
 
@@ -80,6 +80,9 @@ export default {
                 },
                 data: palette
             })
+        },
+        shortenNameToFit(name) {
+            return name.substring(0,14)
         }
     },
     computed: {

@@ -1,0 +1,130 @@
+@import "./variables.scss";
+
+// media queries based on width
+
+@media only screen and (max-width: 1550px) {
+    .color-column .data-container {
+        h1 { font-size: 20px; }
+    }
+}
+
+@media only screen and (max-width: 1300px) {
+    .color-column .data-container {
+        h1 { font-size: 16px; }
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    .color-column .data-container {
+        top: 50%;
+        transform: translateY(-50%);
+
+        h1 {
+            transform: rotate(270deg);
+            font-size: 28px;
+            text-shadow: 2px 2px 32px rgba(0,0,0,0.25);
+
+            &:hover + .color-copy {
+                display: none;
+            }
+
+            &:active {
+                transform: rotate(270deg) scale(0.95);
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 710px) {
+    .color-column .data-container {
+        h1 { font-size: 24px; }
+    }
+
+    #color-selection-form {
+        height: 300px;
+
+        &.dark {
+            #colors-form {
+                border-bottom: 1px solid darken($dark, 3%);
+            }
+        }
+    }
+
+    #colors-form {
+        width: 100%;
+        height: 200px;
+        border-bottom: 1px solid $light-gray;
+
+        #switch-colors-btn {
+            display: block;
+            margin: 0 auto;
+        }
+    }
+
+    .input-wrapper {
+        display: block;
+        margin: 0 auto;
+    }
+
+    #color-count-form {
+        height: 60px;
+        margin-top: 20px;
+    }
+
+    #all-colors {
+        height: calc(100vh - 350px);
+    }
+
+    .darken.smaller {
+        height: calc(100vh - 350px);
+    }
+
+    #color-picker-container {
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 560px) {
+    nav {
+        #shuffle-text { display: none; }
+
+        #navbar-title h1 { font-size: 20px; }
+    }
+}
+
+// media queries based on height and width
+
+@media only screen and (max-height: 500px) and (max-width: 710px) {
+    .color-column .data-container {
+        h1 { display: none; }
+    }
+}
+
+@media only screen and (max-height: 680px) and (max-width: 710px) {
+    #color-picker-container {
+        width: 240px;
+        height: 240px;
+    }
+}
+
+@media only screen and (max-height: 600px) and (max-width: 710px) {
+    #color-picker-container {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media only screen and (max-height: 420px) and (max-width: 940px) {
+    .color-column .data-container {
+        h1 { display: none; }
+    }
+}
+
+// media queries based on height
+
+@media only screen and (max-height: 320px) {
+    .color-column .data-container {
+        h1 { display: none; }
+    }
+}
