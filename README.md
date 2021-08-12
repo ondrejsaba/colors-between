@@ -1,19 +1,17 @@
-# colors-between
+# Colors Between
+A web app made with Vue that generates color palettes based on two colors.
 
-## Project setup
+![screenshot](https://i.imgur.com/ZHuurnt.png)
+
+## Features
+- Saving your color palettes
+- Dark mode
+- Color picker
+
+## Production build
 ```
+git clone https://github.com/liskapolarni/colors-between/
+cd colors-between
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
 npm run build
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
