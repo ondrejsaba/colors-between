@@ -78,7 +78,7 @@ export default {
                     this.setDialog({
                         title: {
                             show: true,
-					        message: this.messages.dialog.errors.exists
+                            message: this.messages.dialog.errors.exists
                         },
                         error: true
                     })
